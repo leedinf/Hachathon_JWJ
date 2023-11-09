@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:jwj_plantdo/flower_detail.dart';
+import 'package:tested/flower_detail.dart';
+import 'package:tested/good_page.dart';
 
 class Flower {
   final int id;
   final String name;
   final String nickname;
   final String photoUrl;
+  final int humidity;
 
-  Flower(
-      {required this.id,
-      required this.name,
-      required this.nickname,
-      required this.photoUrl});
+  Flower({required this.id, required this.name, required this.nickname, required this.humidity,required this.photoUrl});
 }
 
 class FlowerGridPage extends StatelessWidget {
   // 예시 데이터 리스트
   final List<Flower> flowers = List.generate(
     24, // 4x3 그리드에 맞게 12명의 Person 인스턴스를 생성
-    (index) => Flower(
+        (index) => Flower(
       id: index,
       name: '이름 ${index + 1}',
       nickname: '별명 ${index + 1}',
+      humidity: 30 ,
       photoUrl: 'https://picsum.photos/seed/picsum/100/100', // 이미지 URL
     ),
   );
-
-  FlowerGridPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +46,7 @@ class FlowerGridPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      FlowerDetailPage(flower: flowers[index]),
+                  builder: (context) => GoodPage(flower: flowers[index]),
                 ),
               );
             },
@@ -65,7 +61,7 @@ class FlowerGridPage extends StatelessWidget {
 class FlowerCard extends StatelessWidget {
   final Flower flower;
 
-  const FlowerCard({super.key, required this.flower});
+  FlowerCard({required this.flower});
 
   @override
   Widget build(BuildContext context) {
