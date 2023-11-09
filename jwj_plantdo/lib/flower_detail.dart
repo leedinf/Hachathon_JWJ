@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tested/flower_card.dart';
+import 'package:jwj_plantdo/flower_card.dart';
 
 class FlowerDetailPage extends StatelessWidget {
   final Flower flower;

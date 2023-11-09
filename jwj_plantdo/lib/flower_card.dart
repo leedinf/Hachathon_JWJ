@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tested/flower_detail.dart';
-import 'package:tested/good_page.dart';
+import 'package:jwj_plantdo/flower_detail.dart';
+import 'package:jwj_plantdo/good_page.dart';
 
 class Flower {
   final int id;

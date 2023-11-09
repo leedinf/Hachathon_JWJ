@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tested/flower_detail.dart';
-import 'package:tested/flower_card.dart';
+import 'package:jwj_plantdo/flower_detail.dart';
+import 'package:jwj_plantdo/flower_card.dart';
 
 class GoodPage extends StatelessWidget {
   final Flower flower;
