@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jwj_plantdo/flower_detail.dart';
+import 'package:jwj_plantdo/bad_page.dart';
 import 'package:jwj_plantdo/good_page.dart';
 
 class Flower {
@@ -8,8 +8,9 @@ class Flower {
   final String nickname;
   final String photoUrl;
   final int humidity;
+  final int best;
 
-  Flower({required this.id, required this.name, required this.nickname, required this.humidity,required this.photoUrl});
+  Flower({required this.id, required this.name, required this.nickname, required this.humidity, required this.best,required this.photoUrl});
 }
 
 class FlowerGridPage extends StatelessWidget {
@@ -21,6 +22,7 @@ class FlowerGridPage extends StatelessWidget {
       name: '이름 ${index + 1}',
       nickname: '별명 ${index + 1}',
       humidity: 30 ,
+      best: 30,
       photoUrl: 'https://picsum.photos/seed/picsum/100/100', // 이미지 URL
     ),
   );
@@ -43,12 +45,22 @@ class FlowerGridPage extends StatelessWidget {
           return InkWell(
             onTap: () {
               // 클릭 시 PersonDetailPage로 이동
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GoodPage(flower: flowers[index]),
-                ),
-              );
+              if(flowers[index].humidity<=flowers[index].best-5) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BadPage(flower: flowers[index]),
+                  ),
+                );
+              }
+              else{
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GoodPage(flower: flowers[index]),
+                  ),
+                );
+              }
             },
             child: FlowerCard(flower: flowers[index]),
           );
