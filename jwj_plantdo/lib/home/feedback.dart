@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jwj_plantdo/provider.dart';
 
-class BuildFeedback extends StatefulWidget {
+class BuildFeedback extends ConsumerStatefulWidget {
   final int idx;
   const BuildFeedback({
     Key? key,
@@ -8,12 +10,18 @@ class BuildFeedback extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<BuildFeedback> createState() => _BuildFeedbackState();
+  ConsumerState<BuildFeedback> createState() => _BuildFeedbackState();
 }
 
-class _BuildFeedbackState extends State<BuildFeedback> {
+class _BuildFeedbackState extends ConsumerState<BuildFeedback> {
   String fdback = '';
   bool ischecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(feedbackControllerProvider);
+  }
 
   @override
   //grow well, too many bugs, leaves_dying, another_problem

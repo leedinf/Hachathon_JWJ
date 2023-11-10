@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:jwj_plantdo/flower_card.dart';
+import 'package:jwj_plantdo/provider.dart';
 
-class ShowStatistics extends StatefulWidget {
+class ShowStatistics extends ConsumerStatefulWidget {
   final Flower flower;
   const ShowStatistics({
     Key? key,
@@ -11,10 +13,10 @@ class ShowStatistics extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ShowStatistics> createState() => _ShowStatisticsState();
+  ConsumerState<ShowStatistics> createState() => _ShowStatisticsState();
 }
 
-class _ShowStatisticsState extends State<ShowStatistics> {
+class _ShowStatisticsState extends ConsumerState<ShowStatistics> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -28,6 +30,7 @@ class _ShowStatisticsState extends State<ShowStatistics> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildgraph(0),
           _buildgraph(1),
@@ -38,12 +41,21 @@ class _ShowStatisticsState extends State<ShowStatistics> {
     );
   }
 
+  List<int> fdb = [0, 0, 0, 0];
   Widget _buildgraph(int idx) {
+    var feedbackcounter = ref.read(feedbackControllerProvider.notifier);
+    fdb[0] = feedbackcounter.getFeedbackCount(widget.flower.nickname, 0);
+    fdb[1] = feedbackcounter.getFeedbackCount(widget.flower.nickname, 1);
+    fdb[2] = feedbackcounter.getFeedbackCount(widget.flower.nickname, 2);
+    fdb[3] = feedbackcounter.getFeedbackCount(widget.flower.nickname, 3);
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     String fdback = '';
-    int sum = widget.flower.feedback[0] +
-        widget.flower.feedback[1] +
-        widget.flower.feedback[2] +
-        widget.flower.feedback[3];
+    int sum = fdb[0] + fdb[1] + fdb[2] + fdb[3];
+    double dpercent =
+        sum > 0 ? ((fdb[idx].toDouble() / sum.toDouble()) * 100) : 0.0;
+
+    String percent = dpercent.toStringAsFixed(2);
     switch (idx) {
       case 0:
         fdback = 'grow well';
@@ -59,9 +71,13 @@ class _ShowStatisticsState extends State<ShowStatistics> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        Container(
+          decoration: const BoxDecoration(color: Colors.green),
+          width: width * 0.07,
+          height: dpercent == 0 ? 1 : height * 0.3 * dpercent / 100,
+        ),
         Text(fdback),
-        Text(
-            "${widget.flower.feedback[idx]} (${(widget.flower.feedback[idx].toDouble() / sum.toDouble())* 100}%)")
+        Text("${fdb[idx]} ($percent%)")
       ],
     );
   }
