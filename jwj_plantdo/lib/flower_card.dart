@@ -1,19 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import 'package:jwj_plantdo/flower_detail.dart';
+import 'package:jwj_plantdo/bad_page.dart';
+import 'package:jwj_plantdo/good_page.dart';
 
 class Flower {
   final int id; //번호?
   final String name; //장미
   final String nickname; //콩콩이
   final String photoUrl;
+  final int best;
   final int interest;
   final int humidity;
   final int watering;
-  final int best;
-  final List<int>
-      feedback; //grow well, too many bugs, leaves_dying, another_problem
+  final List<int> feedback; //grow well, too many bugs, leaves_dying, another_problem
 
   Flower({
     required this.id,
@@ -31,7 +29,7 @@ class Flower {
 class FlowerGridPage extends StatelessWidget {
   // 예시 데이터 리스트
   final List<Flower> flowers = List.generate(
-    24, // 4x3 그리드에 맞게 12명의 Person 인스턴스를 생성
+    24, // 4x3 그리드에 맞게 12명의 Person 인스턴스를 생
     (index) => Flower(
         id: index,
         name: '이름 ${index + 1}',
@@ -64,13 +62,22 @@ class FlowerGridPage extends StatelessWidget {
           return InkWell(
             onTap: () {
               // 클릭 시 PersonDetailPage로 이동
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      FlowerDetailPage(flower: flowers[index]),
-                ),
-              );
+              if(flowers[index].humidity<=flowers[index].best-5) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BadPage(flower: flowers[index]),
+                  ),
+                );
+              }
+              else{
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GoodPage(flower: flowers[index]),
+                  ),
+                );
+              }
             },
             child: FlowerCard(flower: flowers[index]),
           );
@@ -83,7 +90,7 @@ class FlowerGridPage extends StatelessWidget {
 class FlowerCard extends StatelessWidget {
   final Flower flower;
 
-  const FlowerCard({super.key, required this.flower});
+  FlowerCard({required this.flower});
 
   @override
   Widget build(BuildContext context) {

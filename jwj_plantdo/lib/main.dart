@@ -43,6 +43,7 @@ class _SelectMenuState extends State<SelectMenu> {
           width: double.infinity,
           height: double.infinity,
           decoration:
+
               const BoxDecoration(color: Color.fromARGB(255, 174, 213, 175)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -52,21 +53,20 @@ class _SelectMenuState extends State<SelectMenu> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0, top: 10),
-                    child: RichText(
-                      text: const TextSpan(
-                        text: 'Plant Do',
+                    child: SizedBox(
+                      width: 335,
+                      height: 92,
+                      child: Text(
+                        'Planto-do',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 70,
-                            color: Colors.white),
-                        children: [
-                          TextSpan(
-                            text: '\nfor ~~~',
-                            style: TextStyle(fontSize: 50),
-                          )
-                        ],
+                          color: Color(0xFF39840B),
+                          fontSize: 72,
+                          fontFamily: 'IrishGrover',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
                       ),
-                    ),
+                    )
                   ),
                 ],
               ),
