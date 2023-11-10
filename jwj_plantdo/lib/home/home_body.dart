@@ -18,8 +18,8 @@ class _HomeBodyState extends State<HomeBody> {
         nickname: '별명 ${index + 1}',
         interest: index * 7 % 4,
         photoUrl: 'https://picsum.photos/seed/picsum/100/100',
-        feedback: [0, 1, 2, 2, 0], // 이미지 URL
-        watering: 30,
+        feedback: [3, 2, 0, 1], // 이미지 URL
+        watering: 300,
         humidity: 10,
         best: 35),
   );
