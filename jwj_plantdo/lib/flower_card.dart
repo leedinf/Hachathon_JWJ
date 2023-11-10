@@ -1,17 +1,31 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:jwj_plantdo/flower_detail.dart';
 
 class Flower {
-  final int id;
-  final String name;
-  final String nickname;
+  final int id; //번호?
+  final String name; //장미
+  final String nickname; //콩콩이
   final String photoUrl;
+  final int interest;
+  final int humidity;
+  final int watering;
+  final int best;
+  final List<int>
+      feedback; //grow well, too many bugs, leaves_dying, another_problem
 
-  Flower(
-      {required this.id,
-      required this.name,
-      required this.nickname,
-      required this.photoUrl});
+  Flower({
+    required this.id,
+    required this.name,
+    required this.nickname,
+    required this.photoUrl,
+    required this.interest,
+    required this.humidity,
+    required this.watering,
+    required this.best,
+    required this.feedback,
+  });
 }
 
 class FlowerGridPage extends StatelessWidget {
@@ -19,11 +33,15 @@ class FlowerGridPage extends StatelessWidget {
   final List<Flower> flowers = List.generate(
     24, // 4x3 그리드에 맞게 12명의 Person 인스턴스를 생성
     (index) => Flower(
-      id: index,
-      name: '이름 ${index + 1}',
-      nickname: '별명 ${index + 1}',
-      photoUrl: 'https://picsum.photos/seed/picsum/100/100', // 이미지 URL
-    ),
+        id: index,
+        name: '이름 ${index + 1}',
+        nickname: '별명 ${index + 1}',
+        interest: index * 7 % 4,
+        photoUrl: 'https://picsum.photos/seed/picsum/100/100',
+        feedback: [0, 1, 2, 2, 0], // 이미지 URL
+        watering: 30,
+        humidity: 10,
+        best: 35),
   );
 
   FlowerGridPage({super.key});
