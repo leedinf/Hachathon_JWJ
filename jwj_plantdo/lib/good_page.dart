@@ -18,10 +18,7 @@ class GoodPage extends StatelessWidget {
     String imgstr = '';
     if (flower.humidity > flower.best + 5) {
       imgstr = 'assets/full.jpg';
-    } else {
-      imgstr = 'assets/smileface.gif';
     }
-
     else{
       imgstr='assets/smile.png';
     }

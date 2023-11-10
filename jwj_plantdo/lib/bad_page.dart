@@ -45,8 +45,8 @@ class BadPage extends StatelessWidget {
             },
             child: Card(
               child: ListTile(
-                title: Text(flower.name),
-                subtitle: Text(flower.nickname),
+                title: Center(child: Text(flower.name)),
+                subtitle: Center(child: Text(flower.nickname)),
               ),
             ),
           ),
