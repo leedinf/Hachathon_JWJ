@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwj_plantdo/flower_card.dart';
 import 'package:jwj_plantdo/screen/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,9 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: 'Jalnan',
-          primaryColor: Colors.green,
-          ),
+        fontFamily: 'Jalnan',
+        primaryColor: Colors.green,
+      ),
       home: const SelectMenu(),
     );
   }

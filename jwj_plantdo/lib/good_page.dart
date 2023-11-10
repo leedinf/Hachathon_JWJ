@@ -36,6 +36,7 @@ class GoodPage extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => FlowerGridPage()),
+
                         (Route<dynamic> route) => false,
                   );
                 },
