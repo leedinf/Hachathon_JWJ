@@ -4,7 +4,7 @@ import 'package:jwj_plantdo/flower_card.dart';
 
 class GoodPage extends StatelessWidget {
   final Flower flower;
-  GoodPage({required this.flower});
+  const GoodPage({super.key, required this.flower});
 
   void _navigateToDetailPage(BuildContext context) {
     Navigator.push(
@@ -15,30 +15,28 @@ class GoodPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imgstr='';
-    if(flower.humidity>flower.best+5){
-      imgstr='assets/full.jpg';
+    String imgstr = '';
+    if (flower.humidity > flower.best + 5) {
+      imgstr = 'assets/full.jpg';
+    } else {
+      imgstr = 'assets/smileface.gif';
     }
-    else{
-      imgstr='assets/smile.png';
-    }
-      return Scaffold(
+    return Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height*0.1),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           InkWell(
             onTap: () => _navigateToDetailPage(context),
-            child: Container(
-              width: MediaQuery.of(context).size.width*0.7,
-              height: MediaQuery.of(context).size.height*0.7,
-
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.7,
               child: Image.asset(
                 imgstr,
                 fit: BoxFit.fill,
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           InkWell(
             onTap: () => _navigateToDetailPage(context),
             child: Card(
