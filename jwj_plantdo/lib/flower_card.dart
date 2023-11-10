@@ -3,29 +3,46 @@ import 'package:jwj_plantdo/bad_page.dart';
 import 'package:jwj_plantdo/good_page.dart';
 
 class Flower {
-  final int id;
-  final String name;
-  final String nickname;
+  final int id; //번호?
+  final String name; //장미
+  final String nickname; //콩콩이
   final String photoUrl;
-  final int humidity;
   final int best;
+  final int interest;
+  final int humidity;
+  final int watering;
+  final List<int> feedback; //grow well, too many bugs, leaves_dying, another_problem
 
-  Flower({required this.id, required this.name, required this.nickname, required this.humidity, required this.best,required this.photoUrl});
+  Flower({
+    required this.id,
+    required this.name,
+    required this.nickname,
+    required this.photoUrl,
+    required this.interest,
+    required this.humidity,
+    required this.watering,
+    required this.best,
+    required this.feedback,
+  });
 }
 
 class FlowerGridPage extends StatelessWidget {
   // 예시 데이터 리스트
   final List<Flower> flowers = List.generate(
-    24, // 4x3 그리드에 맞게 12명의 Person 인스턴스를 생성
-        (index) => Flower(
-      id: index,
-      name: '이름 ${index + 1}',
-      nickname: '별명 ${index + 1}',
-      humidity: 30 ,
-      best: 30,
-      photoUrl: 'https://picsum.photos/seed/picsum/100/100', // 이미지 URL
-    ),
+    24, // 4x3 그리드에 맞게 12명의 Person 인스턴스를 생
+    (index) => Flower(
+        id: index,
+        name: '이름 ${index + 1}',
+        nickname: '별명 ${index + 1}',
+        interest: index * 7 % 4,
+        photoUrl: 'https://picsum.photos/seed/picsum/100/100',
+        feedback: [0, 1, 2, 2, 0], // 이미지 URL
+        watering: 30,
+        humidity: 10,
+        best: 35),
   );
+
+  FlowerGridPage({super.key});
 
   @override
   Widget build(BuildContext context) {
