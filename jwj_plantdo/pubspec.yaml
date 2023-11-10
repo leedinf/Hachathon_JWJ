@@ -67,6 +67,9 @@ flutter:
     - assets/1_outlay.png
     - assets/Planto-do.png
     - assets/full.jpg
+    - assets/search.png
+    - assets/cry.png
+
   fonts:
     - family: IrishGrover
       fonts:
