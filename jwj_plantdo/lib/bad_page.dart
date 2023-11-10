@@ -5,7 +5,7 @@ import 'package:jwj_plantdo/flower_card.dart';
 
 class BadPage extends StatelessWidget {
   final Flower flower;
-  BadPage({required this.flower});
+  const BadPage({super.key, required this.flower});
 
 
   @override
@@ -13,8 +13,9 @@ class BadPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height*0.1),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           InkWell(
+
             onTap: () {
               Navigator.push(
                 context,
@@ -32,7 +33,7 @@ class BadPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           InkWell(
             onTap: () {
               Navigator.push(

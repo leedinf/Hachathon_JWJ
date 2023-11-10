@@ -3,11 +3,13 @@ import 'package:jwj_plantdo/flower_card.dart';
 
 class FlowerDetailPage extends StatelessWidget {
   final Flower flower;
-  FlowerDetailPage({required this.flower});
+
+  const FlowerDetailPage({super.key, required this.flower});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Column(
         children: [
           SizedBox(

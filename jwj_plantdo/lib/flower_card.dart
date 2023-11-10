@@ -13,7 +13,8 @@ class Flower {
   final int interest;
   final int humidity;
   final int watering;
-  final List<int> feedback; //grow well, too many bugs, leaves_dying, another_problem
+  final List<int>
+      feedback; //grow well, too many bugs, leaves_dying, another_problem
 
   Flower({
     required this.id,
@@ -38,7 +39,7 @@ class FlowerGridPage extends StatelessWidget {
         nickname: '별명 ${index + 1}',
         interest: index * 7 % 4,
         photoUrl: 'https://picsum.photos/seed/picsum/100/100',
-        feedback: [0, 1, 2, 2, 0], // 이미지 URL
+        feedback: [5, 7, 2, 20], // 이미지 URL
         watering: 30,
         humidity: 20+index*10,
         best: 30),
@@ -114,7 +115,7 @@ class FlowerGridPage extends StatelessWidget {
 class FlowerCard extends StatelessWidget {
   final Flower flower;
 
-  FlowerCard({required this.flower});
+  const FlowerCard({super.key, required this.flower});
 
   @override
   Widget build(BuildContext context) {
