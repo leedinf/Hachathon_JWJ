@@ -41,10 +41,9 @@ class FlowerGridPage extends StatelessWidget {
         photoUrl: 'https://picsum.photos/seed/picsum/100/100',
         feedback: [5, 7, 2, 20], // 이미지 URL
         watering: 30,
-        humidity: 20+index*10,
+        humidity: 20 + index * 10,
         best: 30),
   );
-
 
   FlowerGridPage({super.key});
 
@@ -68,15 +67,14 @@ class FlowerGridPage extends StatelessWidget {
               return InkWell(
                 onTap: () {
                   // 클릭 시 PersonDetailPage로 이동
-                  if(flowers[index].humidity<=flowers[index].best-5) {
+                  if (flowers[index].humidity <= flowers[index].best - 5) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => BadPage(flower: flowers[index]),
                       ),
                     );
-                  }
-                  else{
+                  } else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -94,15 +92,15 @@ class FlowerGridPage extends StatelessWidget {
             left: 10.0,
             child: SafeArea(
               child: FloatingActionButton(
-                child: Icon(Icons.arrow_back, size: 30.0),
                 backgroundColor: Colors.green.withOpacity(0.7),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => SelectMenu()),
-                        (Route<dynamic> route) => false,
+                    MaterialPageRoute(builder: (context) => const SelectMenu()),
+                    (Route<dynamic> route) => false,
                   );
                 },
+                child: const Icon(Icons.arrow_back, size: 30.0),
               ),
             ),
           ),
@@ -127,17 +125,15 @@ class FlowerCard extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-
-                image: DecorationImage(image: NetworkImage(flower.photoUrl), fit: BoxFit.cover),
-                  border:
-                  Border.all(color: Colors.green,width: 2),
+                  image: DecorationImage(
+                      image: NetworkImage(flower.photoUrl), fit: BoxFit.cover),
+                  border: Border.all(color: Colors.green, width: 2),
                   borderRadius: BorderRadius.circular(25)),
             ),
           ),
           Container(
             decoration: BoxDecoration(
-                border:
-                Border.all(color: Colors.green,width: 2),
+                border: Border.all(color: Colors.green, width: 2),
                 borderRadius: BorderRadius.circular(10)),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
