@@ -14,12 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          fontFamily: 'Jalnan',
           primaryColor: Colors.green,
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Color.fromARGB(255, 110, 223, 114),
-            selectedIconTheme: IconThemeData(color: Colors.white),
-            unselectedIconTheme: IconThemeData(color: Colors.grey),
-          )),
+          ),
       home: const SelectMenu(),
     );
   }
@@ -114,7 +111,7 @@ class _SelectMenuState extends State<SelectMenu> {
                   },
                   child: const Text(
                     '고객',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40,fontFamily: 'Jalnan',),
                   ),
                 ),
               ),
