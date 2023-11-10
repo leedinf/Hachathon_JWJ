@@ -6,29 +6,10 @@ from rest_framework.response import Response
 from .models import Plant, Species, Feedback
 from rest_framework.generics import UpdateAPIView, CreateAPIView, ListAPIView
 
-# class PlantViewSet(viewsets.ModelViewSet):
-#    queryset = Plant.objects.all()
-#    serializer_class = PlantSerializer
-#
-# class SpeciesViewSet(viewsets.ModelViewSet):
-#    queryset = Species.objects.all()
-#    serializer_class = SpeciesSerializer
-#
-# class FeedbackViewSet(viewsets.ModelViewSet):
-#    queryset = Feedback.objects.all()
-#    serializer_class = FeedbackSerializer
-
 
 class PlantViewSet(ModelViewSet):
     queryset = Plant.objects.all().order_by('interest')
     serializer_class = PlantListSerializer
-
-    def get_serializer_context(self):
-        return {
-            'request': None,
-            'format': self.format_kwarg,
-            'view': self
-        }
 
     def get_queryset(self):
         return Plant.objects.all().select_related('species').prefetch_related('feedback_set')
