@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:jwj_plantdo/flower_card.dart';
 import 'package:jwj_plantdo/good_page.dart';
@@ -8,7 +9,6 @@ import 'package:provider/provider.dart';
 class FeedbackPage extends ConsumerStatefulWidget {
   final Flower flower;
   const FeedbackPage({Key? key, required this.flower}) : super(key: key);
-
   @override
   _FeedbackPageState createState() => _FeedbackPageState();
 }
@@ -40,7 +40,9 @@ class _FeedbackPageState extends ConsumerState<FeedbackPage> {
               ),
               child: Column(
                 children: [
-                  Container(
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    chiled :Container(
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: const Text(
@@ -74,12 +76,21 @@ class _FeedbackPageState extends ConsumerState<FeedbackPage> {
                           _selectedFeedbackNumber - 1, 1);
                   debugPrint(
                       '${widget.flower.nickname} $_selectedFeedbackNumber');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GoodPage(flower: widget.flower),
-                    ),
-                  );
+ if(_selectedFeedbackNumber!=0) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
+                      content: Center(child: Text('고마워요 !')),
+                      duration: Duration(seconds: 3), // 메시지가 표시되는 시간 (3초)
+                    ));
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GoodPage(flower: widget.flower),
+                      ),
+                    );
+                 
+                  }
                 },
                 backgroundColor: Colors.green.withOpacity(0.7),
                 child: const Icon(Icons.send),
@@ -90,7 +101,6 @@ class _FeedbackPageState extends ConsumerState<FeedbackPage> {
       ),
     );
   }
-
   Widget _buildListTile(String feedbackOption, int feedbackNumber) {
     return ListTile(
       contentPadding: const EdgeInsets.all(15),

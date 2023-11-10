@@ -18,10 +18,11 @@ class GoodPage extends StatelessWidget {
     String imgstr = '';
     if (flower.humidity > flower.best + 5) {
       imgstr = 'assets/full.jpg';
-    } else {
-      imgstr = 'assets/smile.png';
     }
-    return Scaffold(
+    else{
+      imgstr='assets/smile.png';
+    }
+      return Scaffold(
       body: Stack(
         children: [
           Positioned(
@@ -29,27 +30,29 @@ class GoodPage extends StatelessWidget {
             left: 10.0,
             child: SafeArea(
               child: IconButton(
-                icon: const Icon(Icons.arrow_back, size: 30.0),
+                icon: Icon(Icons.arrow_back, size: 30.0),
                 onPressed: () {
                   // 여기에서 첫 번째 화면으로 이동합니다.
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => FlowerGridPage()),
-                    (Route<dynamic> route) => false,
+
+                        (Route<dynamic> route) => false,
                   );
                 },
               ),
             ),
           ),
+
           Column(
             children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+              SizedBox(height: MediaQuery.of(context).size.height*0.1),
               Center(
                 child: InkWell(
                   onTap: () => _navigateToDetailPage(context),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: MediaQuery.of(context).size.height * 0.7,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width*0.7,
+                    height: MediaQuery.of(context).size.height*0.7,
                     child: Image.asset(
                       imgstr,
                       fit: BoxFit.fill,
@@ -57,21 +60,18 @@ class GoodPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Center(
-                child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: InkWell(
-                      onTap: () => _navigateToDetailPage(context),
-                      child: Container(
-                          child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                flower.nickname,
-                                style: const TextStyle(fontSize: 100),
-                              ))),
-                    )),
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.1,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: InkWell(
+                    onTap: () => _navigateToDetailPage(context),
+                    child: Container(
+                      child: FittedBox(child:Text(flower.nickname,style: TextStyle(fontSize:100),), fit: BoxFit.scaleDown)
+                  ),
+                  )
+                ),
               ),
             ],
           ),
