@@ -15,7 +15,14 @@ class GoodPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    String imgstr='';
+    if(flower.humidity>flower.best+5){
+      imgstr='assets/full.jpg';
+    }
+    else{
+      imgstr='assets/smile.png';
+    }
+      return Scaffold(
       body: Column(
         children: <Widget>[
           SizedBox(height: MediaQuery.of(context).size.height*0.1),
@@ -24,8 +31,9 @@ class GoodPage extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width*0.7,
               height: MediaQuery.of(context).size.height*0.7,
+
               child: Image.asset(
-                'assets/smile.png',
+                imgstr,
                 fit: BoxFit.fill,
               ),
             ),
