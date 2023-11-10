@@ -68,4 +68,4 @@ class FeedbackViewset(CreateAPIView):
 
 class HumidityViewset(UpdateAPIView):
     queryset = Plant.objects.all()
-    serializer_class = WateringSerializer
+    serializer_class = HumiditySerializer
