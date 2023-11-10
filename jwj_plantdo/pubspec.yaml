@@ -67,10 +67,17 @@ flutter:
     - assets/1_outlay.png
     - assets/Planto-do.png
     - assets/full.jpg
+    - assets/search.png
+    - assets/cry.png
+
   fonts:
     - family: IrishGrover
       fonts:
         - asset: assets/fonts/IrishGrover-Regular.ttf
+    - family: Jalnan
+      fonts:
+        - asset: assets/fonts/Jalnan.ttf
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
