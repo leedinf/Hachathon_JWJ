@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jwj_plantdo/flower_card.dart';
+import 'package:jwj_plantdo/home/plantcard.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -9,104 +10,59 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
+  final List<Flower> flowers = List.generate(
+    24, // 4x3 그리드에 맞게 12명의 Person 인스턴스를 생성
+    (index) => Flower(
+        id: index,
+        name: '이름 ${index + 1}',
+        nickname: '별명 ${index + 1}',
+        interest: index * 7 % 4,
+        photoUrl: 'https://picsum.photos/seed/picsum/100/100',
+        feedback: [0, 1, 2, 2, 0], // 이미지 URL
+        watering: 30,
+        humidity: 10,
+        best: 35),
+  );
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Positioned(
-          child:
-              ListView.builder(itemBuilder: (BuildContext context, int index) {
-            return const PlantCard();
-          }),
+            child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+            Color.fromARGB(255, 189, 224, 191),
+            Color.fromARGB(255, 152, 243, 155),
+            Color.fromARGB(255, 189, 224, 191)
+          ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+        )),
+        Positioned(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: ListView.builder(
+                itemCount: flowers.length,
+                itemBuilder: (
+                  BuildContext context,
+                  int index,
+                ) {
+                  return PlantCard(flowers: flowers[index]);
+                }),
+          ),
         ),
+        Positioned(
+          bottom: 15,
+          right: 15,
+          child: FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                Navigator.pop(context);
+              });
+            },
+            backgroundColor: Colors.green.withOpacity(0.7),
+            child: const Icon(Icons.home),
+          ),
+        )
       ],
-    );
-  }
-}
-
-class PlantCard extends StatefulWidget {
-  const PlantCard({Key? key}) : super(key: key);
-
-  @override
-  State<PlantCard> createState() => _PlantCardState();
-}
-
-class _PlantCardState extends State<PlantCard> {
-  bool isclicked = false; // 상태를 위젯의 상태로 옮겼습니다.
-
-  @override
-  Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return InkWell(
-      onTap: () {
-        setState(() {
-          isclicked = !isclicked; // 토글
-          debugPrint('click, now ${isclicked ? "true" : "false"}');
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250), // 마이크로초에서 밀리초로 변경
-        curve: Curves.easeIn,
-        margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-        width: MediaQuery.of(context).size.width,
-        height: isclicked ? height * 0.5 : height * 0.1, // 상태에 따라 높이 결정
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 2,
-              spreadRadius: 2,
-              offset: const Offset(0, 1),
-            )
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: height * 0.01),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.network("https://picsum.photos/250?image=9",
-                        height: height * 0.07),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 7),
-                  width: 2,
-                  height: height * 0.07,
-                  decoration: const BoxDecoration(color: Colors.grey),
-                ),
-                const Text("NAME"),
-                Container(
-                  width: 2,
-                  height: height * 0.07,
-                  decoration: const BoxDecoration(color: Colors.grey),
-                ),
-                const Text("JONG"),
-                Container(
-                  width: 2,
-                  height: height * 0.07,
-                  decoration: const BoxDecoration(color: Colors.grey),
-                ),
-                const Icon(CupertinoIcons.heart),
-                const Text("10"),
-              ],
-            ),
-            if (isclicked)
-              const Row(
-                children: [],
-              ),
-          ],
-        ),
-      ),
     );
   }
 }
