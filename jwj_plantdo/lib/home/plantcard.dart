@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jwj_plantdo/flower_card.dart';
-import 'package:jwj_plantdo/home/feedback.dart';
+import 'package:jwj_plantdo/home/feedback_box.dart';
+import 'package:jwj_plantdo/home/humidityset.dart';
+import 'package:jwj_plantdo/home/show_statistics.dart';
 
 class PlantCard extends StatefulWidget {
   final Flower flowers;
@@ -14,8 +16,8 @@ class PlantCard extends StatefulWidget {
 }
 
 class _PlantCardState extends State<PlantCard> {
-  bool isclicked = false; // 상태를 위젯의 상태로 옮겼습니다.
-  bool isfeedback = true; // true: 피드백 flase: 습도
+  bool isclicked = false; // 카드 여닫기
+  int isfeedback = 0; // 피드백 통계 물
   bool showContent = false; // 내용을 표시할지 말지 결정하는 새로운 상태 변수
 
   void toggleCard() {
@@ -48,7 +50,7 @@ class _PlantCardState extends State<PlantCard> {
         curve: Curves.easeIn,
         margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
         width: MediaQuery.of(context).size.width,
-        height: isclicked ? height * 0.5 : height * 0.1, // 상태에 따라 높이 결정
+        height: isclicked ? height * 0.55 : height * 0.1, // 상태에 따라 높이 결정
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white,
@@ -88,14 +90,17 @@ class _PlantCardState extends State<PlantCard> {
                   height: height * 0.07,
                   decoration: const BoxDecoration(color: Colors.grey),
                 ),
-                Container(
-                  width: 140,
-                  padding: const EdgeInsets.all(2),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.flowers.nickname,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Container(
+                    width: 130,
+                    padding: const EdgeInsets.all(2),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.flowers.nickname,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 Container(
@@ -104,14 +109,17 @@ class _PlantCardState extends State<PlantCard> {
                   height: height * 0.07,
                   decoration: const BoxDecoration(color: Colors.grey),
                 ),
-                Container(
-                  width: 140,
-                  padding: const EdgeInsets.all(2),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.flowers.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Container(
+                    width: 130,
+                    padding: const EdgeInsets.all(2),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.flowers.name,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 Container(
@@ -127,7 +135,7 @@ class _PlantCardState extends State<PlantCard> {
                 ),
                 Text("  ${widget.flowers.interest} "),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  margin: const EdgeInsets.only(left: 5, right: 7),
                   width: 2,
                   height: height * 0.07,
                   decoration: const BoxDecoration(color: Colors.white),
@@ -144,28 +152,29 @@ class _PlantCardState extends State<PlantCard> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            isfeedback = true;
+                            isfeedback = 0;
                           });
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.white)),
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          width: width * 0.4,
+                          width: width * 0.3,
                           child: Column(
                             children: [
                               Text(
                                 'FEEDBACK',
                                 style: TextStyle(
-                                    color:
-                                        isfeedback ? Colors.black : Colors.grey,
+                                    color: isfeedback == 0
+                                        ? Colors.black
+                                        : Colors.grey,
                                     fontWeight: FontWeight.bold),
                               ),
                               Container(
                                 margin: const EdgeInsets.only(top: 3),
                                 height: 2,
                                 width: 77,
-                                color: isfeedback
+                                color: isfeedback == 0
                                     ? Colors.green
                                     : Colors.lightGreen,
                               ),
@@ -176,20 +185,20 @@ class _PlantCardState extends State<PlantCard> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            isfeedback = false;
+                            isfeedback = 1;
                           });
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.white)),
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          width: width * 0.4,
+                          width: width * 0.3,
                           child: Column(
                             children: [
                               Text(
-                                'HUMIDITY',
+                                'STATISTICS',
                                 style: TextStyle(
-                                    color: !isfeedback
+                                    color: isfeedback == 1
                                         ? Colors.black
                                         : Colors.grey,
                                     fontWeight: FontWeight.bold),
@@ -198,7 +207,40 @@ class _PlantCardState extends State<PlantCard> {
                                 margin: const EdgeInsets.only(top: 3),
                                 height: 2,
                                 width: 77,
-                                color: !isfeedback
+                                color: isfeedback == 1
+                                    ? Colors.green
+                                    : Colors.lightGreen,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isfeedback = 2;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white)),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          width: width * 0.3,
+                          child: Column(
+                            children: [
+                              Text(
+                                'HUMIDITY',
+                                style: TextStyle(
+                                    color: isfeedback == 2
+                                        ? Colors.black
+                                        : Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 3),
+                                height: 2,
+                                width: 77,
+                                color: isfeedback == 2
                                     ? Colors.green
                                     : Colors.lightGreen,
                               ),
@@ -208,123 +250,12 @@ class _PlantCardState extends State<PlantCard> {
                       ),
                     ],
                   ),
-                  if (isfeedback && showContent)
-                    Container(
-                      //feedback container
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      height: height * 0.33,
-                      width: width - 40,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: List<Widget>.generate(
-                          widget.flowers.feedback.length > 5
-                              ? 5
-                              : widget.flowers.feedback.length,
-                          (int i) =>
-                              BuildFeedback(idx: widget.flowers.feedback[i]),
-                        ),
-                      ),
-                    ),
-                  if (!isfeedback && showContent)
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      height: height * 0.33,
-                      width: width - 40,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 76, 116, 135)),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 76, 116, 135),
-                                  width: 3),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  height: double.infinity,
-                                  width: width * 0.6,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        margin: const EdgeInsets.all(10),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            const Text('NOW HUMIDITY (%)'),
-                                            SizedBox(
-                                              height: height * 0.02,
-                                            ),
-                                            Text(
-                                              '${widget.flowers.humidity}',
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 80,
-                                                color: Color.fromARGB(
-                                                    255, 76, 116, 135),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                      Container(
-                                        width: 1,
-                                        decoration: const BoxDecoration(
-                                            color: Color.fromARGB(
-                                                255, 76, 116, 135)),
-                                      ),
-                                      Expanded(
-                                          child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        margin: const EdgeInsets.all(10),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            const Text('BEST HUMIDITY (%)'),
-                                            SizedBox(
-                                              height: height * 0.02,
-                                            ),
-                                            Text(
-                                              '${widget.flowers.best}',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 80,
-                                                  color: Color.fromARGB(
-                                                      255, 76, 116, 135)),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                    ],
-                                  ),
-                                ),
-                                Container()
-                              ],
-                            ),
-                          ),
-                          const Column()
-                        ],
-                      ),
-                    ),
+                  if (isfeedback == 0 && showContent)
+                    FeedbackBox(flower: widget.flowers),
+                  if (isfeedback == 1 && showContent)
+                    ShowStatistics(flower: widget.flowers),
+                  if (isfeedback == 2 && showContent)
+                    HumiditySet(flower: widget.flowers),
                 ],
               )
           ],

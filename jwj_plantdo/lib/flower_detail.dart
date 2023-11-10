@@ -4,7 +4,7 @@ import 'package:jwj_plantdo/flower_card.dart';
 class FlowerDetailPage extends StatelessWidget {
   final Flower flower;
 
-  FlowerDetailPage({required this.flower});
+  const FlowerDetailPage({super.key, required this.flower});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +21,14 @@ class FlowerDetailPage extends StatelessWidget {
             ),
             Text(
               flower.name,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               flower.nickname,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
               ),
             ),

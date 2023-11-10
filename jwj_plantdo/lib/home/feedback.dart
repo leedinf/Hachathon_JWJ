@@ -1,9 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class BuildFeedback extends StatefulWidget {
   final int idx;
-
   const BuildFeedback({
     Key? key,
     required this.idx,
@@ -16,19 +14,24 @@ class BuildFeedback extends StatefulWidget {
 class _BuildFeedbackState extends State<BuildFeedback> {
   String fdback = '';
   bool ischecked = false;
+
   @override
   //grow well, too many bugs, leaves_dying, another_problem
   Widget build(BuildContext context) {
-    if (widget.idx == 0) {
-      fdback = '  grow well';
-    } else if (widget.idx == 1) {
-      fdback = '  too many bugs';
-    } else if (widget.idx == 2) {
-      fdback = '  leaves dying';
-    } else if (widget.idx == 3) {
-      fdback = '  another problem';
+    switch (widget.idx) {
+      case 0:
+        fdback = '  grow well';
+      case 1:
+        fdback = '  too many bugs';
+      case 2:
+        fdback = '  leaves dying';
+      case 3:
+        fdback = '  another problem';
+      default:
+        fdback = '';
     }
-
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     if (fdback.isEmpty) {
       return Container(
         width: MediaQuery.of(context).size.width * 0.7,
@@ -38,22 +41,24 @@ class _BuildFeedbackState extends State<BuildFeedback> {
     }
     return Row(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.7,
-          padding: const EdgeInsets.all(5),
-          margin: const EdgeInsets.all(7),
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-              border:
-                  Border.all(color: !ischecked ? Colors.green : Colors.grey),
-              borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            fdback,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: !ischecked ? Colors.black : Colors.grey),
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: height * 0.01),
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                border:
+                    Border.all(color: !ischecked ? Colors.green : Colors.grey),
+                borderRadius: BorderRadius.circular(10)),
+            child: FittedBox(
+              fit: BoxFit.scaleDown, // 텍스트가 너무 크면 축소합니다.
+              child: Text(
+                fdback,
+                style:
+                    TextStyle(color: !ischecked ? Colors.black : Colors.grey),
+              ),
+            ),
           ),
         ),
-        const Spacer(),
         IconButton(
             onPressed: () {
               setState(() {
@@ -61,7 +66,7 @@ class _BuildFeedbackState extends State<BuildFeedback> {
               });
             },
             icon: Icon(
-                !ischecked ? Icons.check_box_outline_blank : Icons.check_box))
+                !ischecked ? Icons.check_box_outline_blank : Icons.check_box)),
       ],
     );
   }

@@ -4,7 +4,7 @@ import 'package:jwj_plantdo/flower_card.dart';
 
 class BadPage extends StatelessWidget {
   final Flower flower;
-  BadPage({required this.flower});
+  const BadPage({super.key, required this.flower});
 
   void _navigateToDetailPage(BuildContext context) {
     Navigator.push(
@@ -18,19 +18,19 @@ class BadPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height*0.1),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           InkWell(
             onTap: () => _navigateToDetailPage(context),
-            child: Container(
-              width: MediaQuery.of(context).size.width*0.7,
-              height: MediaQuery.of(context).size.height*0.7,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.7,
               child: Image.asset(
-                'assets/smile.png',
+                'smileface.gif',
                 fit: BoxFit.fill,
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           InkWell(
             onTap: () => _navigateToDetailPage(context),
             child: Card(
